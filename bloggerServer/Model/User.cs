@@ -5,7 +5,7 @@ namespace bloggerServer.Model
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required]
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
@@ -20,6 +20,5 @@ namespace bloggerServer.Model
         [Required(ErrorMessage = "Password is required")]
         public string UserPassword { get; set; }
 
-        public List<SecurityQuestion> SecurityQuestions { get; set; }
     }
 }

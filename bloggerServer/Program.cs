@@ -13,7 +13,7 @@ namespace bloggerServer
 
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 
             var app = builder.Build();
 
