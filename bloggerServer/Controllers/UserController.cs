@@ -73,7 +73,7 @@ namespace bloggerServer.Controllers
 
         [HttpPut("{id}")]
         [ActionName("UpdateUserData")]
-        public async Task<ActionResult<User>> UpdateUserData(User user, int id)
+        public async Task<IActionResult> UpdateUserData(User user, int id)
         {
             try
             {
