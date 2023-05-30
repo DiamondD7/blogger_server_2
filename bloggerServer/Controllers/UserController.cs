@@ -45,6 +45,21 @@ namespace bloggerServer.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("CheckPassword")]
+        public async Task<ActionResult<User>> CheckPassword(User user)
+        {
+            var hashedPassword = HashPassword(user.UserPassword);
+            var loginUser = await _context.Users.FirstOrDefaultAsync(x => x.UserPassword == hashedPassword);
+            if (loginUser == null)
+            {
+                return NotFound("No users found");
+            }
+
+            return loginUser;
+        }
+
+
         [HttpPost]
         [ActionName("AddUserData")]
         public async Task<ActionResult<User>> AddUserData(User user)

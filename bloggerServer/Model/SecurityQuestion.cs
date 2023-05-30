@@ -18,14 +18,13 @@ namespace bloggerServer.Model
 
 
         [Required]
-        private string SecurityAnswerOne { get; set; }
+        public string SecurityAnswerOne { get; set; }
 
         [Required]
-        private string SecurityAnswerTwo { get; set; }
+        public string SecurityAnswerTwo { get; set; }
 
         [Required]
-        private string SecurityAnswerThree { get; set; }
-
+        public string SecurityAnswerThree { get; set; }
 
 
         public bool IsAuthorize(string AnswerOne, string AnswerTwo, string AnswerThree)
@@ -35,13 +34,6 @@ namespace bloggerServer.Model
                 return true;
             }
             return false;
-        }
-
-        public void GetValues(string quesFirst, string quesSecond, string quesThird)
-        {
-            SecurityAnswerOne = quesFirst;
-            SecurityAnswerTwo = quesSecond;
-            SecurityAnswerThree = quesThird;
         }
     }
 }
