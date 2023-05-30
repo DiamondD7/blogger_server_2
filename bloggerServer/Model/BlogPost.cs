@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bloggerServer.Model
 {
@@ -13,8 +14,7 @@ namespace bloggerServer.Model
         public string PostTitle { get; set; }
         public string? PostBody { get; set; }
         public string? Description { get; set; }
-        public IFormFile? PostImage { get; set; }
-        public string? PostImagePath { get; set; }
+        public string? PostImagePathName { get; set; }
         public DateTime CreatedOn { get; set; }
 
 

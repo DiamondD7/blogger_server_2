@@ -36,7 +36,7 @@ namespace bloggerServer.Controllers
                 newPosts.CreatedOn = DateTime.UtcNow;
                 newPosts.PostTitle = posts.PostTitle;
                 newPosts.PostBody = posts.PostBody;
-                newPosts.PostImagePath = $"wwwroot/uploads/{posts.PostImage.FileName}";
+                newPosts.PostImagePathName = posts.PostImagePathName;
 
                 _context.PostTable.Add(newPosts);
                 await _context.SaveChangesAsync();
@@ -51,16 +51,16 @@ namespace bloggerServer.Controllers
 
         [HttpPost]
         [ActionName("AddImage")]
-        public IActionResult AddImage(BlogPost posts)
+        public IActionResult AddImage(UploadImage upload)
         {
-            if (posts != null && posts.PostImage != null && posts.PostImage.Length > 0)
+            if (upload != null && upload.PostImage != null && upload.PostImage.Length > 0)
             {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(posts.PostImage.FileName);
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.PostImage.FileName);
                 var filePath = Path.Combine("wwwroot/uploads", fileName);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    posts.PostImage.CopyTo(fileStream);
+                    upload.PostImage.CopyTo(fileStream);
                 }
 
                 var imageUrl = $"/uploads/{fileName}";
