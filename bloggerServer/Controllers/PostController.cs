@@ -76,7 +76,7 @@ namespace bloggerServer.Controllers
 
         [HttpPut("{id}")]
         [ActionName("UpdatePosts")]
-        public async Task<IActionResult> UpdatePosts(int id, BlogPost posts)
+        public async Task<ActionResult<BlogPost>> UpdatePosts(int id, BlogPost posts)
         {
             try
             {

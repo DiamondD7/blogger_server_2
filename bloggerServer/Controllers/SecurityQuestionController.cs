@@ -51,6 +51,7 @@ namespace bloggerServer.Controllers
                 var hashedAnswerTwo = HashPassword(securityQuestion.SecurityAnswerTwo);
                 var hashedAnswerThree = HashPassword(securityQuestion.SecurityAnswerThree);
                 var secuQues = new SecurityQuestion();
+                secuQues.UserId = securityQuestion.UserId;
                 secuQues.SecurityQuestionOne = securityQuestion.SecurityQuestionOne;
                 secuQues.SecurityQuestionTwo = securityQuestion.SecurityQuestionTwo;
                 secuQues.SecurityQuestionThree = securityQuestion.SecurityQuestionThree;
@@ -60,7 +61,7 @@ namespace bloggerServer.Controllers
 
                 _context.SecurityTable.Add(secuQues);
                 await _context.SaveChangesAsync();
-                return Ok("Updated");
+                return Ok("Added");
 
             }
             catch (Exception ex)

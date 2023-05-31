@@ -109,6 +109,7 @@ namespace bloggerServer.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ActionName("DeleteUserData")]
         public async Task<ActionResult<User>> DeleteUserData(int id)
         {
             try
