@@ -45,7 +45,8 @@ namespace bloggerServer.Controllers
             }
         }
 
-        [HttpGet]
+
+        [HttpPost]
         [ActionName("CheckPassword")]
         public async Task<ActionResult<User>> CheckPassword(User user)
         {
@@ -54,6 +55,10 @@ namespace bloggerServer.Controllers
             if (loginUser == null)
             {
                 return NotFound("No users found");
+            }
+            else if(loginUser.UserUserName != user.UserUserName)
+            {
+                return NotFound("Invalid username/password");
             }
 
             return loginUser;

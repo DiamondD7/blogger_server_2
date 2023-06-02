@@ -7,13 +7,13 @@ namespace bloggerServer.Model
         [Key]
         public int UserId { get; set; }
         [Required]
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
+        public string? UserFirstName { get; set; }
+        public string? UserLastName { get; set; }
         [Required]
-        public string UserEmail { get; set; }
+        public string? UserEmail { get; set; }
         [Required]
-        public string UserMobileNumber { get; set; }
-        public string UserGender { get; set; }
+        public string? UserMobileNumber { get; set; }
+        public string? UserGender { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
         public string UserUserName { get; set; }
