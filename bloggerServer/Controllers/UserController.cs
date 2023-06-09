@@ -54,11 +54,11 @@ namespace bloggerServer.Controllers
             var loginUser = await _context.Users.FirstOrDefaultAsync(x => x.UserPassword == hashedPassword);
             if (loginUser == null)
             {
-                return NotFound("No users found");
+                return NotFound(false);
             }
             else if(loginUser.UserUserName != user.UserUserName)
             {
-                return NotFound("Invalid username/password");
+                return NotFound(false);
             }
 
             return loginUser;
