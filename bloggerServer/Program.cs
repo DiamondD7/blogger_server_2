@@ -23,6 +23,8 @@ namespace bloggerServer
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseAuthorization();
 
 
