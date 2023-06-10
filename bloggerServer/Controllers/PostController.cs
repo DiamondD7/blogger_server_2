@@ -30,11 +30,11 @@ namespace bloggerServer.Controllers
             try
             {
                 var newPosts = new BlogPost();
-                newPosts.Id = posts.Id;
                 newPosts.PostUserId = posts.PostUserId;
                 newPosts.Description = posts.Description;
                 newPosts.CreatedOn = DateTime.UtcNow;
                 newPosts.PostTitle = posts.PostTitle;
+                newPosts.isAnon = posts.isAnon;
                 newPosts.PostBody = posts.PostBody;
                 newPosts.PostImagePathName = posts.PostImagePathName;
 
@@ -51,12 +51,18 @@ namespace bloggerServer.Controllers
 
         [HttpPost]
         [ActionName("AddImage")]
-        public IActionResult AddImage(UploadImage upload)
+        public IActionResult AddImage([FromForm] UploadImage upload)
         {
             if (upload != null && upload.PostImage != null && upload.PostImage.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.PostImage.FileName);
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
                 var filePath = Path.Combine("wwwroot/uploads", fileName);
+
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
@@ -64,8 +70,9 @@ namespace bloggerServer.Controllers
                 }
 
                 var imageUrl = $"/uploads/{fileName}";
+                var imagePathName = fileName;
 
-                return Ok(new { imageUrl });
+                return Ok(new { imageUrl, imagePathName });
             }
             else
             {
