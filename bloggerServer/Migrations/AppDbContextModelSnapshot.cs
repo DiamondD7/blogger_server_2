@@ -49,8 +49,9 @@ namespace bloggerServer.Migrations
                     b.Property<int>("PostUserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isAnon")
-                        .HasColumnType("bit");
+                    b.Property<string>("isAnon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -15,7 +15,7 @@ namespace bloggerServer.Model
         public string? PostBody { get; set; }
         public string? Description { get; set; }
         public string? PostImagePathName { get; set; }
-        public bool isAnon { get; set; }
+        public string isAnon { get; set; }
         public DateTime CreatedOn { get; set; }
 
 
