@@ -2,7 +2,7 @@
 {
     public class UploadImage
     {
-        public IFormFile PostImage { get; set; }
-        public IFormFile UserProfilePicture { get; set; }
+        public IFormFile? PostImage { get; set; }
+        public IFormFile? UserProfilePicture { get; set; }
     }
 }

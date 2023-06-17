@@ -14,13 +14,12 @@ namespace bloggerServer.Model
         [Required]
         public string? UserMobileNumber { get; set; }
         public string? UserGender { get; set; }
-
         public string? UserProfilePicture { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
-        public string UserUserName { get; set; }
+        public string? UserUserName { get; set; }
         [Required(ErrorMessage = "Password is required")]
-        public string UserPassword { get; set; }
+        public string? UserPassword { get; set; }
 
     }
 }

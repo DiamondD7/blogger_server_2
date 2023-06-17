@@ -95,6 +95,24 @@ namespace bloggerServer.Controllers
             }
         }
 
+        [HttpPut]
+        [ActionName("SaveUserProfilePicture")]
+        public async Task<ActionResult<User>> SaveUserProfilePicture(User user)
+        {
+            var newUser = new User();
+            newUser.UserProfilePicture = user.UserProfilePicture;
+            newUser.UserFirstName = user.UserFirstName;
+            newUser.UserLastName = user.UserLastName;
+            newUser.UserEmail = user.UserEmail;
+            newUser.UserGender = user.UserGender;
+            newUser.UserMobileNumber = user.UserMobileNumber;
+            newUser.UserUserName = user.UserUserName;
+            newUser.UserPassword = user.UserPassword;
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+            return Ok(newUser);
+        }
+
 
         [HttpPost]
         [ActionName("AddUserData")]
