@@ -64,6 +64,37 @@ namespace bloggerServer.Controllers
             return loginUser;
         }
 
+        [HttpPost]
+        [ActionName("AddImage")]
+        public IActionResult AddImage([FromForm] UploadImage upload)
+        {
+            if (upload != null && upload.UserProfilePicture != null && upload.UserProfilePicture.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(upload.UserProfilePicture.FileName);
+                var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/userprofilepics");
+                var filePath = Path.Combine("wwwroot/userprofilepics", fileName);
+
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    upload.UserProfilePicture.CopyTo(fileStream);
+                }
+
+                var imageUrl = $"/userprofilepics/{fileName}";
+                var imagePathName = fileName;
+
+                return Ok(new { imageUrl, imagePathName });
+            }
+            else
+            {
+                return BadRequest("No file");
+            }
+        }
+
 
         [HttpPost]
         [ActionName("AddUserData")]
