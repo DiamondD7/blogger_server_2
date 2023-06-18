@@ -13,5 +13,6 @@ namespace bloggerServer.Data
         public DbSet<User> Users { get; set; } 
         public DbSet<BlogPost> PostTable { get; set; }
         public DbSet<SecurityQuestion> SecurityTable { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }
