@@ -66,12 +66,20 @@ namespace bloggerServer.Controllers
         {
             try
             {
-                if(id != userProfile.Id)
+
+                var findUser = await _context.UserProfiles.FirstOrDefaultAsync(x => x.UserId == id);
+                if (findUser == null)
                 {
                     return NotFound();
                 }
 
-                _context.Entry(userProfile).State = EntityState.Modified;
+                findUser.Description = userProfile.Description;
+                findUser.PinnedOne = userProfile.PinnedOne;
+                findUser.PinnedTwo = userProfile.PinnedTwo;
+                findUser.PinnedThree = userProfile.PinnedThree;
+
+
+                _context.Entry(findUser).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 return Ok("Updated");
