@@ -92,6 +92,7 @@ namespace bloggerServer.Controllers
                     return BadRequest();
                 }
 
+
                 _context.Entry(posts).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
