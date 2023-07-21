@@ -41,6 +41,19 @@ namespace bloggerServer.Controllers
             }
         }*/
 
+        [HttpGet("{id}")]
+        [ActionName("GetSecurityDetails")]
+        public async Task<ActionResult<SecurityQuestion>> GetSecurityDetails(int id)
+        {
+            var userSecDetails = await _context.SecurityTable.FirstOrDefaultAsync(x => x.UserId == id);
+            if(userSecDetails == null)
+            {
+                return NotFound();
+            }
+            return userSecDetails;
+        }
+
+
         [HttpPost]
         [ActionName("AddSecurityData")]
         public async Task<ActionResult<SecurityQuestion>> AddSecurityData(SecurityQuestion securityQuestion)

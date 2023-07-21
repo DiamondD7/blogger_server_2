@@ -45,6 +45,19 @@ namespace bloggerServer.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("GetUserWithPara")]
+        public async Task<ActionResult<User>> GetUserWithPara([FromQuery]string uname)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserUserName == uname);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
 
         [HttpPost]
         [ActionName("CheckPassword")]
