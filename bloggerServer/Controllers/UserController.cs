@@ -64,12 +64,14 @@ namespace bloggerServer.Controllers
         public async Task<ActionResult<User>> CheckPassword(User user)
         {
             var hashedPassword = HashPassword(user.UserPassword);
+            var loginUserUserName = await _context.Users.FirstOrDefaultAsync(x => x.UserUserName == user.UserUserName);
             var loginUser = await _context.Users.FirstOrDefaultAsync(x => x.UserPassword == hashedPassword);
-            if (loginUser == null)
+
+            if (loginUser == null && loginUserUserName == null) // to check if my code cant find any login information
             {
                 return NotFound(false);
             }
-            else if(loginUser.UserUserName != user.UserUserName)
+            else if (loginUser.UserId != loginUserUserName.UserId) //this is to check whether the loginUser Id is similar or not. if not return notfound.
             {
                 return NotFound(false);
             }
@@ -145,7 +147,7 @@ namespace bloggerServer.Controllers
 
                 _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
-                return Ok("Added");
+                return newUser;
             }
             catch(Exception ex)
             {
