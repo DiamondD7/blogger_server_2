@@ -23,23 +23,7 @@ namespace bloggerServer.Controllers
         public async Task<IEnumerable<SecurityQuestion>> GetAllData()
         {
             return await _context.SecurityTable.ToListAsync();
-        }
-
-        /*[HttpGet]
-        [ActionName("CheckSecurityAnswers")]
-        public async Task<ActionResult<SecurityQuestion>> CheckSecurityAnswers(SecurityQuestion securityQuestion)
-        {
-            var security = new SecurityQuestion();
-
-            var userInputQuestionOne = HashPassword(securityQuestion.SecurityAnswerOne);
-            var userInputQuestionTwo = HashPassword(securityQuestion.SecurityAnswerTwo);
-            var userInputQuestionThree = HashPassword(securityQuestion.SecurityAnswerThree);
-
-            if(security.SecurityAnswerOne == userInputQuestionOne && security.SecurityAnswerTwo == userInputQuestionTwo && security.SecurityAnswerThree == userInputQuestionThree)
-            {
-                security.Authorize = true;
-            }
-        }*/
+        } 
 
         [HttpGet("{id}")]
         [ActionName("GetSecurityDetails")]
@@ -51,6 +35,33 @@ namespace bloggerServer.Controllers
                 return NotFound();
             }
             return userSecDetails;
+        }
+
+        [HttpPost("{id}")]
+        [ActionName("CheckSecurityAnswers")]
+        public async Task<ActionResult<SecurityQuestion>> CheckSecurityAnswers(int id, SecurityQuestion securityQuestion)
+        {
+            bool isValidated = false;
+            var userInputQuestionOne = HashPassword(securityQuestion.SecurityAnswerOne);
+            var userInputQuestionTwo = HashPassword(securityQuestion.SecurityAnswerTwo);
+            var userInputQuestionThree = HashPassword(securityQuestion.SecurityAnswerThree);
+
+            var findUserDetails = await _context.SecurityTable.FirstOrDefaultAsync(x => x.UserId == id);
+
+
+            if (findUserDetails.SecurityAnswerOne == userInputQuestionOne && findUserDetails.SecurityAnswerTwo == userInputQuestionTwo && findUserDetails.SecurityAnswerThree == userInputQuestionThree)
+            {
+                isValidated = true;
+            }
+
+
+            if(isValidated == false)
+            {
+                return NotFound(false);
+            }
+
+            return Ok(true);
+            
         }
 
 
