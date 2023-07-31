@@ -67,6 +67,8 @@ namespace bloggerServer.Controllers
             var loginUserUserName = await _context.Users.FirstOrDefaultAsync(x => x.UserUserName == user.UserUserName);
             var loginUser = loginUserUserName.UserPassword == hashedPassword;
 
+            //NEED TO FIX FOR WHEN THE USER HAVE THE DIFFERENT PASSWORD AND SAME USERNAME 
+
             if (loginUserUserName == null || loginUser == false) // to check if my code cant find any login information
             {
                 return NotFound(false);
