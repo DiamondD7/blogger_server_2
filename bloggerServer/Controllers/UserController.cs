@@ -65,18 +65,14 @@ namespace bloggerServer.Controllers
         {
             var hashedPassword = HashPassword(user.UserPassword);
             var loginUserUserName = await _context.Users.FirstOrDefaultAsync(x => x.UserUserName == user.UserUserName);
-            var loginUser = await _context.Users.FirstOrDefaultAsync(x => x.UserPassword == hashedPassword);
+            var loginUser = loginUserUserName.UserPassword == hashedPassword;
 
-            if (loginUser == null && loginUserUserName == null) // to check if my code cant find any login information
-            {
-                return NotFound(false);
-            }
-            else if (loginUser.UserId != loginUserUserName.UserId) //this is to check whether the loginUser Id is similar or not. if not return notfound.
+            if (loginUserUserName == null || loginUser == false) // to check if my code cant find any login information
             {
                 return NotFound(false);
             }
 
-            return loginUser;
+            return loginUserUserName;
         }
 
         [HttpPost]
@@ -157,7 +153,7 @@ namespace bloggerServer.Controllers
 
         [HttpPut("{id}")]
         [ActionName("UpdateUserData")]
-        public async Task<IActionResult> UpdateUserData(User user, int id)
+        public async Task<IActionResult> UpdateUserData(int id, User user)
         {
             try
             {
@@ -165,7 +161,8 @@ namespace bloggerServer.Controllers
                 {
                     return BadRequest();
                 }
-
+                var hashedPW = HashPassword(user.UserPassword);
+                user.UserPassword = hashedPW;
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
