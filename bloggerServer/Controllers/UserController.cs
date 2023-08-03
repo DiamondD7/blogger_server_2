@@ -134,6 +134,11 @@ namespace bloggerServer.Controllers
             try
             {
                 var hashedPW = HashPassword(user.UserPassword);
+                var findExistingUserName = await _context.Users.FirstOrDefaultAsync(x => x.UserUserName == user.UserUserName);
+                if(findExistingUserName != null)
+                {
+                    return BadRequest(new {error = new {code = "Error 404", message = "Username is already taken"}});
+                }
                 var newUser = new User();
                 newUser.UserFirstName = user.UserFirstName;
                 newUser.UserLastName = user.UserLastName;
