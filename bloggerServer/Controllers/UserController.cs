@@ -169,9 +169,35 @@ namespace bloggerServer.Controllers
                     return BadRequest();
                 }
                 var hashedPW = HashPassword(user.UserPassword);
-                user.UserPassword = hashedPW;
-                _context.Entry(user).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                var loggedUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == user.UserId);
+                //FIND A WAY TO FIX THIS REPEAT CODE
+                if(loggedUser.UserPassword != user.UserPassword)
+                {
+                    loggedUser.UserPassword = hashedPW;
+                    loggedUser.UserGender = user.UserGender;
+                    loggedUser.UserMobileNumber = user.UserMobileNumber;
+                    loggedUser.UserUserName = user.UserUserName;
+                    loggedUser.UserLastName = user.UserLastName;
+                    loggedUser.UserFirstName = user.UserFirstName;
+                    loggedUser.UserEmail = user.UserEmail;
+                    loggedUser.UserProfilePicture = user.UserProfilePicture;
+                    _context.Entry(loggedUser).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    loggedUser.UserPassword = user.UserPassword;
+                    loggedUser.UserGender = user.UserGender;
+                    loggedUser.UserMobileNumber = user.UserMobileNumber;
+                    loggedUser.UserUserName = user.UserUserName;
+                    loggedUser.UserLastName = user.UserLastName;
+                    loggedUser.UserFirstName = user.UserFirstName;
+                    loggedUser.UserEmail = user.UserEmail;
+                    loggedUser.UserProfilePicture = user.UserProfilePicture;
+                    _context.Entry(loggedUser).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+ 
 
                 return Ok("Updated");
             }
