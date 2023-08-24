@@ -40,7 +40,8 @@ namespace bloggerServer.Controllers
 
                 _context.PostTable.Add(newPosts);
                 await _context.SaveChangesAsync();
-                return Ok("Added");
+
+                return newPosts;
 
             }
             catch(Exception ex)
@@ -48,6 +49,8 @@ namespace bloggerServer.Controllers
                 throw;
             }
         }
+
+        
 
         [HttpPost]
         [ActionName("AddImage")]

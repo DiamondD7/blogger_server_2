@@ -58,6 +58,29 @@ namespace bloggerServer.Migrations
                     b.ToTable("PostTable");
                 });
 
+            modelBuilder.Entity("bloggerServer.Model.Hashtags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hashtags");
+                });
+
             modelBuilder.Entity("bloggerServer.Model.SecurityQuestion", b =>
                 {
                     b.Property<int>("Id")
