@@ -49,6 +49,29 @@ namespace bloggerServer.Controllers
 
 
         [HttpDelete("{id}")]
+        [ActionName("DeleteSingle")]
+        public async Task<ActionResult<Hashtags>> DeleteSingle(int id)
+        {
+            try
+            {
+                var findHashtag = await _context.Hashtags.SingleOrDefaultAsync(x => x.Id == id);
+                if (findHashtag == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Hashtags.Remove(findHashtag);
+                await _context.SaveChangesAsync();
+
+                return Ok("deleted");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete("{id}")]
         [ActionName("DeleteBunch")]
         public async Task<ActionResult<Hashtags>> DeleteBunch(int id)
         {
