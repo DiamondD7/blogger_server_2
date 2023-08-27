@@ -3,6 +3,7 @@ using bloggerServer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace bloggerServer.Controllers
 {
@@ -119,7 +120,6 @@ namespace bloggerServer.Controllers
                 {
                     return NotFound();
                 }
-
                 _context.PostTable.Remove(findId);
                 await _context.SaveChangesAsync();
 
