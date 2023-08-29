@@ -121,8 +121,8 @@ namespace bloggerServer.Controllers
                     return NotFound();
                 }
 
-                /*var findPinned = await _context.UserProfiles.FirstOrDefaultAsync(x => x.PinnedOne == findId.PostTitle || x.PinnedTwo == findId.PostTitle || x.PinnedThree == findId.PostTitle);*/
-                var findPinned = await _context.UserProfiles.FirstOrDefaultAsync(x => x.UserId == findId.PostUserId);
+                var findPinned = await _context.UserProfiles.FirstOrDefaultAsync(x => x.UserId == findId.PostUserId); //look for the object that has the same userId and deletes
+                                                                                                                      //the pinned post on the profile if the post is pinned.
                 if(findPinned != null)
                 {
                     if(findPinned.PinnedOne == findId.PostTitle)
