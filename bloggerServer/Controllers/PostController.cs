@@ -120,6 +120,28 @@ namespace bloggerServer.Controllers
                 {
                     return NotFound();
                 }
+
+                /*var findPinned = await _context.UserProfiles.FirstOrDefaultAsync(x => x.PinnedOne == findId.PostTitle || x.PinnedTwo == findId.PostTitle || x.PinnedThree == findId.PostTitle);*/
+                var findPinned = await _context.UserProfiles.FirstOrDefaultAsync(x => x.UserId == findId.PostUserId);
+                if(findPinned != null)
+                {
+                    if(findPinned.PinnedOne == findId.PostTitle)
+                    {
+                        findPinned.PinnedOne = "";
+                        
+                    }
+                    else if(findPinned.PinnedTwo == findId.PostTitle)
+                    {
+                        findPinned.PinnedTwo = "";
+                    }
+                    else
+                    {
+                        findPinned.PinnedThree = "";
+                    }
+                    _context.Entry(findPinned).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                
                 _context.PostTable.Remove(findId);
                 await _context.SaveChangesAsync();
 
