@@ -89,5 +89,19 @@ namespace bloggerServer.Controllers
                 throw;
             }
         }
+
+        [HttpDelete("{id}")]
+        [ActionName("DeleteProfileContent")]
+        public async Task<ActionResult<UserProfile>> DeleteProfileContent(int id)
+        {
+            var findId = await _context.UserProfiles.FindAsync(id);
+            if(findId == null)
+            {
+                return NotFound();
+            }
+            _context.UserProfiles.Remove(findId);
+            await _context.SaveChangesAsync();
+            return Ok("Deleted");
+        }
     }
 }
